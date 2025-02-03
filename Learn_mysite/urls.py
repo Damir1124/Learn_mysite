@@ -1,0 +1,16 @@
+from django.urls import path, include
+from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
+from mysite.sitemaps import PostSitemap
+
+sitemaps = {
+    'posts': PostSitemap,
+}
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('mysite.urls', namespace='mysite')),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+         name='django.contrib.sitemaps.views.sitemap'),
+    path("accounts/", include("accounts.urls")),
+    path('accounts/', include('django.contrib.auth.urls')),
+    ]
